@@ -20,7 +20,8 @@ def get_training_dataset():
     training data """
     data = list()
     for line in open("train.dat", "r"):
-        data.append(line.rstrip().split(" "))
+        inp, out = line.rstrip().split(" ")
+        data.append((float(inp), float(out)))
 
     return data
 
@@ -66,14 +67,14 @@ def build_fset():
 
     return fset
 
-def configure_toolbox(pset):
+def configure_toolbox(pset, tournsize):
     """ Creates and configures a DEAP toolbox object """
     creator.create("FitnessMin", base.Fitness, weights=(-1.0, ))
     creator.create("Individual", gp.PrimitiveTree, fitness=creator.FitnessMin)
 
     toolbox = base.Toolbox()
 
-    toolbox.register("expr", gp.genHalfAndHalf, pset=pset, min_=0, max_=100)
+    toolbox.register("expr", gp.genHalfAndHalf, pset=pset, min_=0, max_=20)
     toolbox.register("individual", tools.initIterate, creator.Individual, toolbox.expr)
     toolbox.register("compile", gp.compile, pset=pset)
 
@@ -82,7 +83,7 @@ def configure_toolbox(pset):
     toolbox.register("evaluate", eval_symb_reg, toolbox=toolbox, points=get_training_dataset())
 
     # boilerplatey looking functions (TODO: investigate)
-    toolbox.register("select", tools.selTournament, tournsize=3)
+    toolbox.register("select", tools.selTournament, tournsize=tournsize)
     toolbox.register("mate", gp.cxOnePoint)
     toolbox.register("expr_mut", gp.genFull, min_=0, max_=2)
     toolbox.register("mutate", gp.mutUniform, expr=toolbox.expr_mut, pset=pset)
@@ -94,13 +95,19 @@ def configure_toolbox(pset):
 
 def main():
     """ Entry point """
-    random.seed(102)
+    random.seed()
 
     fset = build_fset()
 
-    toolbox = configure_toolbox(fset)
+    num_generations = 1000
+    initial_pop_num = 600
+    crossover_prob = 0.9
+    mutation_prob = 0.10
+    tournsize = 3
 
-    pop = toolbox.population(5)
+    toolbox = configure_toolbox(fset, tournsize)
+
+    pop = toolbox.population(initial_pop_num)
     hof = tools.HallOfFame(1)
 
     stats_fit = tools.Statistics(lambda ind: ind.fitness.values)
@@ -111,8 +118,11 @@ def main():
     mstats.register("min", numpy.min)
     mstats.register("max", numpy.max)
 
-    pop, log = algorithms.eaSimple(pop, toolbox, 0.9, 0.05, 1, stats=mstats,
-                                   halloffame=hof, verbose=True)
+    pop, log = algorithms.eaSimple(pop, toolbox, crossover_prob,
+                                    mutation_prob,
+                                    num_generations,
+                                    stats=mstats,
+                                    halloffame=hof, verbose=True)
     # print log
     return pop, log, hof
 
@@ -120,3 +130,4 @@ if __name__ == "__main__":
     pop, log, hof = main()
 
     print(log.stream)
+    print(hof[0])
