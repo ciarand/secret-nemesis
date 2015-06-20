@@ -1,0 +1,16 @@
+= secret nemesis
+
+[quote]
+Submission for a symbolic regression assignment in my AI class.
+
+== Status
+
+Super, super incomplete.
+
+== Getting started
+
+TODO: insert instructions here
+
+== License
+
+ISC, see the LICENSE file.
