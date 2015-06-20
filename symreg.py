@@ -19,7 +19,7 @@ def get_training_dataset():
     """ returns a dictionary of input => output values extracted from the
     training data """
     data = list()
-    for line in open("train.txt", "r"):
+    for line in open("train.dat", "r"):
         data.append(line.rstrip().split(" "))
 
     return data
