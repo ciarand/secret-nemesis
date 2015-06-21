@@ -4,10 +4,10 @@
 set -eo pipefail
 
 main() {
-    echo "Checking preconditions..."
-    python --version 2&>1 || (echo "You need python in your \$PATH" && false)
-    pip --version 2&>1 || (echo "You need pip in your \$PATH" && false)
-    virtualenv --version 2&>1 || pip install virtualenv
+    echo "Checking requirements..."
+    python --version > /dev/null 2>&1     || (echo "You need python in your \$PATH" && false)
+    pip --version > /dev/null 2>&1        || (echo "You need pip in your \$PATH" && false)
+    virtualenv --version > /dev/null 2>&1 || pip install virtualenv
 
     echo "Setting up virtualenv..."
     virtualenv venv
