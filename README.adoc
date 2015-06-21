@@ -5,11 +5,21 @@ Submission for a symbolic regression assignment in my AI class.
 
 == Status
 
-Super, super incomplete.
+Function generation is done, though the function itself is rarely pretty.
 
 == Getting started
 
-TODO: insert instructions here
+Don't bother trying to run this on a Windows PC unless you know what you're
+doing (if you don't understand init.sh, just setup a virtual machine).
+
+[source,bash]
+----
+./init.sh
+source venv/bin/activate
+
+# OPTIONAL: change the parameters in symreg.py
+python symreg.py
+----
 
 == License
 
