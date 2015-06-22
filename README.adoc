@@ -1,7 +1,8 @@
 = secret nemesis
 
 [quote]
-Submission for a group symbolic regression assignment in my AI class.
+Submission for a group symbolic regression assignment in CSUF's Summer 2015 AI
+class.
 
 == Status
 
