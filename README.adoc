@@ -1,7 +1,7 @@
 = secret nemesis
 
 [quote]
-Submission for a symbolic regression assignment in my AI class.
+Submission for a group symbolic regression assignment in my AI class.
 
 == Status
 
@@ -20,6 +20,16 @@ source venv/bin/activate
 # OPTIONAL: change the parameters in symreg.py
 python symreg.py
 ----
+
+== Authors
+
+In alphabetic order:
+
+- Ciaran Downey (@ciarand)
+- Eric Rosenzweig (@erosenzweig)
+- Joe Greene (@joegreene)
+- Michelle Beck (@michelephantz)
+- Rhapsody Budiono (@rhapswt)
 
 == License
 
